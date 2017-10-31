@@ -19,12 +19,15 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'ipython',
+    'pyramid_ipython',
 ]
 
 tests_require = [
     'WebTest >= 1.3.1',  # py3 compat
     'pytest',
     'pytest-cov',
+    'tox',
 ]
 
 setup(
