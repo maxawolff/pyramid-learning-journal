@@ -1,7 +1,7 @@
 """Docstring yo."""
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound
-from jounal_entries import entries
+from pyramid.data import entries
 
 
 @view_config(route_name='home',
