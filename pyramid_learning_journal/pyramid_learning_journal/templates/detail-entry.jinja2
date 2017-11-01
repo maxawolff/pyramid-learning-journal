@@ -1,3 +1,10 @@
 {% extends "layout.jinja2" %}
-
+    <div>
+      <h1>{{ title }}}</h1>
+      <p>{{ date }}</p>
+    </div>
+    <div>
+      <p>{{ body }}</p>
+      <a href="{{ request.route_url('detail', id=expense.id) }}"><p>Edit</p></a>
+    </div>
 {% endblock %}

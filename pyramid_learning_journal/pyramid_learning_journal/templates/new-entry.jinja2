@@ -1,0 +1,19 @@
+{% extends "layout.jinja2" %}
+    <form>
+      <table>
+        <tr>
+          <td><label for = "title"> Post Title </label><td>
+          <td><input type = "text" name = "title"/></td>
+        </tr>
+        <tr>
+          <td><label for = "date"> Created On </label><td>
+          <td><input type = "date" name = "date"/></td>
+        </tr>
+        <tr>
+          <td><label for = "body"> Write Post Here </label><td>
+          <td><textarea name = "body"></textarea></td>
+          <input type = "submit" value = "submit entry"/>
+        </tr>
+      </table>
+    </form>
+{% endblock %}
