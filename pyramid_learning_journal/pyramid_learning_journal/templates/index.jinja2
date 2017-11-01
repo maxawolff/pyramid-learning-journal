@@ -1,0 +1,16 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<h1>Max's Learning Journal</h1>
+    <section>
+    {% for entry in entries %}
+
+        <div>
+            <h2>{{entry.title}}</h2>
+            <p>{{entry.creation_date}}</p>
+            <a href="{{ request.route_url('detail', id=entry.id) }}"><p>Details</p></a>
+        </div>
+
+    {% endfor %}
+    <section>
+{% endblock %}
