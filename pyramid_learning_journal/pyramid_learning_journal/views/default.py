@@ -32,7 +32,6 @@ def home(request):
 def detail(request):
     """."""
     entry_id = int(request.matchdict['id'])
-    pdb.set_trace()
     if entry_id < 0 or entry_id > len(entries) + 1:
         raise HTTPNotFound
     entry = list(filter(lambda entry: entry['id'] == entry_id, entries))[0]
@@ -49,9 +48,15 @@ def detail(request):
              renderer="pyramid_learning_journal:templates/edit-entry.jinja2")
 def edit_entry(request):
     """."""
+    return {
+        'entry': entries
+    }
 
 
 @view_config(route_name='create',
              renderer="pyramid_learning_journal:templates/new-entry.jinja2")
 def new_entry(request):
     """."""
+    return {
+        'entry': entries
+    }
