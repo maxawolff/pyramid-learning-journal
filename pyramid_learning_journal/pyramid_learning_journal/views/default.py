@@ -48,8 +48,16 @@ def detail(request):
              renderer="pyramid_learning_journal:templates/edit-entry.jinja2")
 def edit_entry(request):
     """."""
+    entry_id = int(request.matchdict['id'])
+    if entry_id < 0 or entry_id > len(entries) + 1:
+        raise HTTPNotFound
+    entry = list(filter(lambda entry: entry['id'] == entry_id, entries))[0]
+    # pdb.set_trace()
     return {
-        'entry': entries
+        'title': entry['title'],
+        'date': entry['creation_date'],
+        'body': entry['body'],
+        'number': entry['id']
     }
 
 

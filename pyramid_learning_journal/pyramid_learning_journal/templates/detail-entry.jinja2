@@ -2,11 +2,11 @@
 
 {% block content %}
     <div>
-      <h1>{{ title }}}</h1>
+      <h1>{{ title }}</h1>
       <p>{{ date }}</p>
     </div>
     <div>
       <p>{{ body }}</p>
-      <a href="{{ request.route_url('detail', id=id) }}"><p>Edit</p></a>
+      <a href="{{ request.route_url('update', id=number) }}"><p>Edit</p></a>
     </div>
 {% endblock %}
