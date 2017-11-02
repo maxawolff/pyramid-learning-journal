@@ -40,15 +40,17 @@ def detail(request):
         'title': entry['title'],
         'date': entry['creation_date'],
         'body': entry['body'],
-        'id': entry['id']
+        'number': entry['id']
     }
 
 
 @view_config(route_name='update',
              renderer="pyramid_learning_journal:templates/edit-entry.jinja2")
 def edit_entry(request):
+    # pdb.set_trace()
     """."""
     entry_id = int(request.matchdict['id'])
+    # pdb.set_trace()
     if entry_id < 0 or entry_id > len(entries) + 1:
         raise HTTPNotFound
     entry = list(filter(lambda entry: entry['id'] == entry_id, entries))[0]
