@@ -1,6 +1,7 @@
 """Docstring yo."""
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound
+from pyramid_learning_journal.models.entries import Entry
 import pdb
 
 
@@ -23,10 +24,15 @@ entries = [{'id': 1, 'title': 'Day 1', 'creation_date': '10/16/17', 'body': 'som
              renderer="pyramid_learning_journal:templates/index.jinja2")
 def home(request):
     """."""
-    rev_entries = reversed(entries)
+    entries = request.dbsession.query(Entry).all()
+    entries = [entry.to_dict() for entry in entries]
     return {
-        'entries': rev_entries
+        "entries": entries
     }
+    # rev_entries = reversed(entries)
+    # return {
+    #     'entries': rev_entries
+    # }
 
 
 @view_config(route_name="detail",

@@ -1,7 +1,6 @@
 """."""
 from sqlalchemy import (
     Column,
-    Index,
     Integer,
     Unicode,
 )
