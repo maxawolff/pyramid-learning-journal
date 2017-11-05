@@ -2,6 +2,7 @@
 import os
 import sys
 import transaction
+import pdb
 
 from pyramid.paster import (
     get_appsettings,
@@ -53,5 +54,5 @@ def main(argv=sys.argv):
                 body=entry["body"],
                 creation_date=entry["creation_date"]
             )
-        all_entries.append(new_entry)
-    dbsession.add_all(all_entries)
+            all_entries.append(new_entry)
+        dbsession.add_all(all_entries)
