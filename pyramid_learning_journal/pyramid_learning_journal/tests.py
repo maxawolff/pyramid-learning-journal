@@ -9,6 +9,7 @@ from pyramid_learning_journal.models import get_tm_session
 from pyramid_learning_journal.data.journal_entries import entries
 import pdb
 import transaction
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 
 
 @pytest.fixture(scope="session")
@@ -99,6 +100,22 @@ def test_home_returns_count_matching_database(dummy_request, add_models):
     assert len(response['entries']) == query.count()
 
 
+def test_detail_returns_correct_info(dummy_request, add_models):
+    """Detail view response has correct title."""
+    from pyramid_learning_journal.views.default import detail
+    dummy_request.matchdict['id'] = 12
+    response = detail(dummy_request)
+    assert response['title'] == 'Day 12'
+
+
+def test_detail_returns_404_bad_id(dummy_request, add_models):
+    """Home view response matches database count."""
+    from pyramid_learning_journal.views.default import detail
+    dummy_request.matchdict['id'] = 13
+    with pytest.raises(HTTPNotFound):
+        detail(dummy_request)
+
+
 @pytest.fixture(scope="session")
 def testapp(request):
     """Create a test app for functional testing."""
@@ -123,7 +140,7 @@ def testapp(request):
     Base.metadata.create_all(bind=engine)  # builds the tables
 
     def tearDown():
-        Base.metadata.drop_all(bind=engine) # when tests are done, kill tables in DB
+        Base.metadata.drop_all(bind=engine)  # when tests are done, kill tables in DB
 
     request.addfinalizer(tearDown)
 
@@ -145,3 +162,9 @@ def test_home_route_has_entry_titles(testapp, fill_the_db):
     """Should have 12 h2s on home page if entries are present."""
     response = testapp.get("/")
     assert len(response.html.find_all('h2')) == 12
+
+
+def test_detail_shows_actual_detail(testapp, fill_the_db):
+    """Detail view should have correct info from db."""
+    response = testapp.get("/journal/11")
+    assert 'custom routes' in response.ubody

@@ -50,16 +50,6 @@ def detail(request):
         return return_val
     else:
         raise HTTPNotFound
-    # if entry_id < 0 or entry_id > len(entries) + 1:
-    #     raise HTTPNotFound
-    # entry = list(filter(lambda entry: entry['id'] == entry_id, entries))[0]
-    # # pdb.set_trace()
-    # return {
-    #     'title': entry['title'],
-    #     'date': entry['creation_date'],
-    #     'body': entry['body'],
-    #     'number': entry['id']
-    # }
 
 
 @view_config(route_name='update',
