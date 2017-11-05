@@ -1,0 +1,21 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<h1>Edit Entry</h1>
+    <form>
+      <table>
+        <tr>
+          <td><label for = "title"> Post Title </label><td>
+          <td><input type = "text" name = "title" placeholder="Previous Title"/></td>
+        </tr>
+        <tr>
+          <td><label for = "date"> Created On </label><td>
+          <td><input type = "date" name = "date" value = "10/29/17"/></td>
+        </tr>
+        <tr>
+          <td><label for = "body"> Write Post Here </label><td>
+          <td><textarea name = "body">This is the body of the previous post. It probably is a lot longer than this, or maybe it isn't.</textarea></td>
+          <input type = "submit" value = "update entry"/>
+        </tr>
+      </table>
+    </form>
+{% endblock %}

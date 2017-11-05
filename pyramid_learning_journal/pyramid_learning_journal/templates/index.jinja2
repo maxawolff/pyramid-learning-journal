@@ -6,8 +6,8 @@
     {% for entry in entries %}
 
         <div>
-            <h2>{{entry.title}}</h2>
-            <p>{{entry.creation_date}}</p>
+            <h2>{{ entry.title }}</h2>
+            <p>{{ entry.date }}</p>
             <a href="{{ request.route_url('detail', id=entry.id) }}"><p>Details</p></a>
         </div>
 
