@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Create New Entry</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link href="https://use.fontawesome.com/043440fbe3.css" media="all" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a href = "index.html"><p>Home</p></a>
-    </header>
-    <h1>Create New Entry</h1>
+{% extends "layout.jinja2" %}
+{% block content %}
+
     <form>
       <table>
         <tr>
@@ -28,10 +18,4 @@
         </tr>
       </table>
     </form>
-    <footer>
-      <div>
-        <p>Insert social icons here!</p>
-      </div>
-    </footer>
-  </body>
-</html>
+{% endblock %}
