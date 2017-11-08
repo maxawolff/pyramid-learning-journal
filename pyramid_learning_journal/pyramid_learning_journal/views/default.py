@@ -3,6 +3,8 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 from pyramid_learning_journal.models.entries import Entry
 from datetime import datetime
+from pyramid.security import remember, forget
+from pyramid_learning_journal.security import check_credentials
 import pdb
 
 
@@ -89,3 +91,22 @@ def new_entry(request):
         request.dbsession.add(new_entry)
         return HTTPFound(request.route_url('list'))
     return {}
+
+
+@view_config(route_name='login', renderer='../templates/login.jinja2')
+def login(request):
+    """View for login page."""
+    if request.method == 'POST':
+        username = request.params.get('username', '')
+        password = request.params.get('password', '')
+        if check_credentials(username, password):
+            headers = remember(request, username)
+            return HTTPFound(location=request.route_url('home'), headers=headers)
+    return {}
+
+
+@view_config(route_name='logout')
+def logout(request):
+    """When user hits this route, log them out."""
+    headers = forget(request)
+    return HTTPFound(request.route_url('home'), headers=headers)
