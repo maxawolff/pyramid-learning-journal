@@ -53,7 +53,7 @@ def edit_entry(request):
             'body': entry.body,
             'number': entry_id
         }
-    if request.method == "POST":
+    if request.method == "POST" and request.POST:
         entry.title = request.POST['title']
         entry.creation_date = datetime.strptime(request.POST['date'], '%Y-%m-%d')
         entry.body = request.POST['body']
@@ -84,8 +84,8 @@ def new_entry(request):
         new_entry = Entry(
             title=form_data['title'],
             body=form_data['body'],
-            creation_date=datetime.datetime.now().strftime("%m/%d/%Y")
+            creation_date=datetime.now().strftime("%m/%d/%Y")
         )
         request.dbsession.add(new_entry)
-        return HTTPFound(request.route_url('home'))
+        return HTTPFound(request.route_url('list'))
     return {}
