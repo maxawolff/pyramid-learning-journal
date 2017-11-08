@@ -41,7 +41,8 @@ def detail(request):
 
 
 @view_config(route_name='update',
-             renderer="pyramid_learning_journal:templates/edit-entry.jinja2")
+             renderer="pyramid_learning_journal:templates/edit-entry.jinja2",
+             permission='secret')
 def edit_entry(request):
     """View to handle updating an existing entry."""
     entry_id = int(request.matchdict['id'])
@@ -78,7 +79,8 @@ def edit_entry(request):
 
 
 @view_config(route_name='create',
-             renderer="pyramid_learning_journal:templates/new-entry.jinja2")
+             renderer="pyramid_learning_journal:templates/new-entry.jinja2",
+             permission='secret')
 def new_entry(request):
     """Creating a new learning journal entry."""
     if request.method == "POST":
@@ -96,12 +98,18 @@ def new_entry(request):
 @view_config(route_name='login', renderer='../templates/login.jinja2')
 def login(request):
     """View for login page."""
+    if request.authenticated_userid:
+        return HTTPFound(request.route_url('list'))
+
     if request.method == 'POST':
         username = request.params.get('username', '')
         password = request.params.get('password', '')
         if check_credentials(username, password):
             headers = remember(request, username)
-            return HTTPFound(location=request.route_url('home'), headers=headers)
+            return HTTPFound(location=request.route_url('list'), headers=headers)
+            pdb.set_trace()
+        else:
+            return {'message': 'incorrect login information, please try again'}
     return {}
 
 
@@ -109,4 +117,4 @@ def login(request):
 def logout(request):
     """When user hits this route, log them out."""
     headers = forget(request)
-    return HTTPFound(request.route_url('home'), headers=headers)
+    return HTTPFound(request.route_url('list'), headers=headers)
