@@ -5,6 +5,8 @@ from pyramid_learning_journal.models.entries import Entry
 from datetime import datetime
 from pyramid.security import remember, forget
 from pyramid_learning_journal.security import check_credentials
+from pyramid.session import check_csrf_token
+
 import pdb
 
 
@@ -82,7 +84,11 @@ def edit_entry(request):
              renderer="pyramid_learning_journal:templates/new-entry.jinja2",
              permission='secret')
 def new_entry(request):
+    """."""
+    check_csrf_token(request)
     """Creating a new learning journal entry."""
+    if request.method == "GET":
+        return {}
     if request.method == "POST":
         form_data = request.POST
         new_entry = Entry(
@@ -95,7 +101,7 @@ def new_entry(request):
     return {}
 
 
-@view_config(route_name='login', renderer='../templates/login.jinja2')
+@view_config(route_name='login', renderer='../templates/login.jinja2', require_csrf=False)
 def login(request):
     """View for login page."""
     if request.authenticated_userid:
