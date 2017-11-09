@@ -84,8 +84,6 @@ def edit_entry(request):
              renderer="pyramid_learning_journal:templates/new-entry.jinja2",
              permission='secret')
 def new_entry(request):
-    """."""
-    check_csrf_token(request)
     """Creating a new learning journal entry."""
     if request.method == "GET":
         return {}
