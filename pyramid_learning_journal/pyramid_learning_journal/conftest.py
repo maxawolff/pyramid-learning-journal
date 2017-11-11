@@ -13,7 +13,7 @@ import pdb
 def configuration(request):
     """."""
     config = testing.setUp(settings={
-        'sqlalchemy.url': 'postgres://postgres:potato@localhost:5432/test_entries'
+        'sqlalchemy.url': 'postgres://postgres:potato@localhost:5432/test_entries2'
     })
     config.include("pyramid_learning_journal.models")
 
@@ -70,7 +70,7 @@ def testapp(request):
 
     def main():
         settings = {
-            'sqlalchemy.url': 'postgres://postgres:potato@localhost:5432/test_entries'
+            'sqlalchemy.url': 'postgres://postgres:potato@localhost:5432/test_entries2'
         }
         config = Configurator(settings=settings)
         config.include('pyramid_jinja2')
@@ -94,7 +94,7 @@ def testapp(request):
     return TestApp(app)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def fill_the_db(testapp):
     """Fill test app with entry data."""
     SessionFactory = testapp.app.registry["dbsession_factory"]
