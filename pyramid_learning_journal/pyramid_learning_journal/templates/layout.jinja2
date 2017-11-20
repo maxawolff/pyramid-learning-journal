@@ -9,7 +9,12 @@
   <body>
     <header>
       <a href="{{ request.route_url('list') }}"><p>Home</p></a>
+      {% if request.authenticated_userid %}
       <a href="{{ request.route_url('create') }}"><p>Create New Entry</p></a>
+      <a href="{{ request.route_url('logout') }}"><p>Logout</p></a>
+      {% else %}
+      <a href="{{ request.route_url('login') }}"><p>Login</p></a>
+      {% endif %}
     </header>
       {% block content %}{% endblock %}
     <footer>
