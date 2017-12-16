@@ -1,27 +1,9 @@
 """Test for routes and stuff."""
 import pytest
-import pdb
 from pyramid_learning_journal.models.entries import Entry
 from pyramid.httpexceptions import HTTPNotFound  # HTTPFound, HTTPBadRequest
-from datetime import datetime
-
-
-# follow to annother page = response.follow()
-
 
 FMT = '%m/%d/%Y'
-
-
-# def test_model_gets_added(db_session):
-#     """Test that database works."""
-#     assert len(db_session.query(Entry).all()) == 0
-#     model = Entry(
-#         title="A title",
-#         body="some words and stuff",
-#         creation_date=datetime.strptime('11/08/2017', FMT),
-#     )
-#     db_session.add(model)
-#     assert len(db_session.query(Entry).all()) == 1
 
 
 def test_home_returns_dictionary(dummy_request):
@@ -126,17 +108,3 @@ def test_need_authentication_to_post(testapp):
 def test_need_authentication_to_edit(testapp):
     """Trying to view creat page without signing in should return 403."""
     assert testapp.get('/journal/edit-entry/5', status=403)
-
-
-# Fuck this test, it was working the other day when we tried dropping the database, now that doesn't work. I give up
-# when I add a new entry it sets the ID to one, even though there are other entires in there, I have no idea
-# def test_post_after_sign_in(testapp):
-#     """Trying to view creat page without signing in should return 403."""
-#     testapp.post('/login', {"username": 'maxawolff', "password": "C8rd1n81"})
-#     response = testapp.get('/journal/new-entry')
-#     token = response.html.findAll('input')[0]['value']
-#     testapp.post('/journal/new-entry', {'title': "Test Title",
-#                                         'body': "some words and stuff",
-#                                         'creation_date': datetime.strptime('11/20/2017', FMT),
-#                                         'csrf_token': token})
-#     assert 'Test Title' in testapp.get('/').ubody

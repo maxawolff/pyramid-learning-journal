@@ -19,7 +19,6 @@ def check_credentials(username, password):
             try:
                 is_authenticated = pwd_context.verify(password, stored_password)
             except ValueError:
-                # ValueError is raised if the stored password is not hashed or if the salt is improper
                 pass
     return is_authenticated
 

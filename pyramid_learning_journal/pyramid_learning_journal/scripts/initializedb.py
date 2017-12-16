@@ -1,8 +1,7 @@
 """."""
 import os
 import sys
-import transaction
-import pdb
+
 
 from pyramid.paster import (
     get_appsettings,
@@ -39,19 +38,3 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
     settings['sqlalchemy.url'] = os.environ['DATABASE_URL']
     engine = get_engine(settings)
-    # Base.metadata.drop_all(engine)
-    # Base.metadata.create_all(engine)
-    # session_factory = get_session_factory(engine)
-
-    # with transaction.manager:
-    #     dbsession = get_tm_session(session_factory, transaction.manager)
-
-    #     all_entries = []
-    #     for entry in entries:
-    #         new_entry = Entry(
-    #             title=entry["title"],
-    #             body=entry["body"],
-    #             creation_date=entry["creation_date"]
-    #         )
-    #         all_entries.append(new_entry)
-    #     dbsession.add_all(all_entries)
