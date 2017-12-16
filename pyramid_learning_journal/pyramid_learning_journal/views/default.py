@@ -1,13 +1,10 @@
 """Docstring yo."""
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 from pyramid_learning_journal.models.entries import Entry
 from datetime import datetime
 from pyramid.security import remember, forget
 from pyramid_learning_journal.security import check_credentials
-from pyramid.session import check_csrf_token
-
-import pdb
 
 
 @view_config(route_name='list',
@@ -18,10 +15,6 @@ def home(request):
     return {
         "entries": entries
     }
-    # rev_entries = reversed(entries)
-    # return {
-    #     'entries': rev_entries
-    # }
 
 
 @view_config(route_name="detail",
@@ -64,20 +57,6 @@ def edit_entry(request):
         entry.body = request.POST['body']
         request.dbsession.flush()
         return HTTPFound(request.route_url('detail', id=entry.id))
-    # # pdb.set_trace()
-    # """."""
-    # entry_id = int(request.matchdict['id'])
-    # # pdb.set_trace()
-    # if entry_id < 0 or entry_id > len(entries) + 1:
-    #     raise HTTPNotFound
-    # entry = list(filter(lambda entry: entry['id'] == entry_id, entries))[0]
-    # # pdb.set_trace()
-    # return {
-    #     'title': entry['title'],
-    #     'date': entry['creation_date'],
-    #     'body': entry['body'],
-    #     'number': entry['id']
-    # }
 
 
 @view_config(route_name='create',
@@ -111,7 +90,6 @@ def login(request):
         if check_credentials(username, password):
             headers = remember(request, username)
             return HTTPFound(location=request.route_url('list'), headers=headers)
-            pdb.set_trace()
         else:
             return {'message': 'incorrect login information, please try again'}
     return {}
